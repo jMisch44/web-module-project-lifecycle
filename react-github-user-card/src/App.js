@@ -1,17 +1,40 @@
+import React, { Component } from "react";
+import axios from "axios";
 import "./App.css";
 
-function App() {
-  return (
-    <div className="App">
-      <img
-        src="https://images.unsplash.com/photo-1608085021978-6981f6993f9c?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=784&q=80"
-        alt="placeholder image"
-      />
-      <h1>login</h1>
-      <p>name</p>
-      <p>bio</p>
-    </div>
-  );
+class App extends React.Component {
+  state = {
+    gitUserData: {},
+  };
+
+  componentDidMount() {
+    axios
+      .get(`https://api.github.com/users/jMisch44`)
+      .then((res) => {
+        this.setState({
+          ...this.state,
+          gitUserData: res.data,
+        });
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  }
+
+  render() {
+    return (
+      <div className="App">
+        <img
+          width={100}
+          src={this.state.gitUserData.avatar_url}
+          alt="placeholder"
+        />
+        <h1>{this.state.gitUserData.login}</h1>
+        <p>{this.state.gitUserData.name}</p>
+        <p>{this.state.gitUserData.bio}</p>
+      </div>
+    );
+  }
 }
 
 export default App;
