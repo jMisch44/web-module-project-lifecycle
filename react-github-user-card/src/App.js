@@ -37,18 +37,25 @@ class App extends React.Component {
   render() {
     return (
       <div className="App">
-        <img
-          width={100}
-          src={this.state.gitUserData.avatar_url}
-          alt="git avatar"
-        />
-        <h1>{this.state.gitUserData.login}</h1>
-        <p>{this.state.gitUserData.name}</p>
-        <p>{this.state.gitUserData.bio}</p>
-        <h3>followers</h3>
-        {this.state.gitUserFollowers.map((follower) => {
-          return <p>{follower.login}</p>;
-        })}
+        <div className="card-container">
+          <div className="non-followers card">
+            <img
+              width={100}
+              src={this.state.gitUserData.avatar_url}
+              alt="github avatar"
+            />
+            <div className="non-followers text">
+              <h1>{this.state.gitUserData.login}</h1>
+              <p>{this.state.gitUserData.name}</p>
+              <p>{this.state.gitUserData.bio}</p>
+            </div>
+          </div>
+          <h3>followers:</h3>
+
+          {this.state.gitUserFollowers.map((follower) => {
+            return <p className="followers">{follower.login}, </p>;
+          })}
+        </div>
       </div>
     );
   }
